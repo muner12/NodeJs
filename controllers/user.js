@@ -112,13 +112,16 @@ let userLogin=async(req,res)=>{
 }
 
 
+//logout controller
+
+
 //refreshToken Controller
 
 let handleRefresh=(req,res)=>{
     const cookies=req.cookies
-    if(!cookies?.jwt) return  res.status(401).json({ "message": "You are not logged in!" });
+    if(!cookies.jwt) return  res.status(401).json({ "message": "You are not logged in!" });
     const refreshToken=cookies.jwt;
-    foundUser=usersDB.users.find(person=>person.rershToken===refreshToken);
+   let  foundUser=usersDB.users.find(person=>person.rershToken===refreshToken);
     if(!foundUser)return   res.status(401).json({ "message": "UnAuthorized User"});
     jwt.verify(
         refreshToken,
@@ -136,5 +139,11 @@ let handleRefresh=(req,res)=>{
     )
 
 }
+
+
+//logout Controller
+
+
+
 
 module.exports={registerUser,userLogin,getUsers,handleRefresh}
